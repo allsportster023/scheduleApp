@@ -8,16 +8,15 @@ class WeekViewScrollPanel extends React.Component {
 
     this.renderItem = this.renderItem.bind(this);
     this.changeRefs = this.changeRefs.bind(this);
-
   }
-
 
   renderItem(index, key) {
 
     let thisItemDate = this.props.date.clone();
-    thisItemDate.add(index-5003, 'days');
+    thisItemDate.add(index - 5003, 'days');
 
-    return <div key={key} className={'monthItem item' + (index % 2 ? '' : ' even')}>
+    return <div id={thisItemDate.format("YYYY-MM-DD")} key={key}
+                className={'monthItem item' + (index % 2 ? '' : ' even')}>
       <div style={{verticalAlign: 'top', lineHeight: '25px'}}>
         <b>{thisItemDate.format("ddd  M/D")}</b>
       </div>
@@ -27,28 +26,24 @@ class WeekViewScrollPanel extends React.Component {
     </div>;
   }
 
-  changeRefs(){
+  changeRefs() {
     return this.props.scrollHandler(this.monthList.getVisibleRange())
-  }
-
-  renderExamples() {
-    return <div className={`example axis-x`}>
-        <div className='component' onScroll={this.changeRefs}>
-          <ReactList axis={'x'}
-                     ref={c => this.monthList = c}
-                     length={10000}
-                     initialIndex={5000}
-                     itemRenderer={this.renderItem}
-                     type='uniform'
-          />
-        </div>
-      </div>;
   }
 
   render() {
     return (
       <div className='index'>
-        {this.renderExamples()}
+        <div className={`axis-x`}>
+          <div className='component' onScroll={this.changeRefs}>
+            <ReactList axis={'x'}
+                       ref={c => this.monthList = c}
+                       length={10000}
+                       initialIndex={5000}
+                       itemRenderer={this.renderItem}
+                       type='uniform'
+            />
+          </div>
+        </div>
       </div>
     );
   }

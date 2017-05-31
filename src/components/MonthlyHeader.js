@@ -9,13 +9,18 @@ class MonthlyHeader extends React.Component {
     super(props);
   }
 
+  componentDidUpdate(nextProps, nextState) {
+
+    if(this.props != nextProps){
+      console.log("MonthlyHeader: componentDidUpdate Props");
+
+      console.log(this.props.currentTimeframe2);
+    }
+  }
+
   render() {
 
     const currView = this.props.currentCalType;
-    const currTimeframe = this.props.currentTimeframe;
-
-    const currTimeframe2 = this.props.currentTimeframe2;
-
 
     //default to MONTH header
     let headerText = this.props.currentTimeframe2[0].format("MMM YYYY");

@@ -1,11 +1,11 @@
 {
   "name": "scheduleApp",
   "version": "1.0.0",
-  "description": "A project for viewing app data",
+  "description": "Making better use of everyone's time",
   "main": "app.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/allsportster023/statsDashboard"
+    "url": "https://github.com/allsportster023/scheduleApp"
   },
   "keywords": [
     "gulp",
@@ -35,9 +35,9 @@
   "author": "The Dream Team",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/samkarp/murmuration/issues"
+    "url": "https://github.com/allsportster023/scheduleApp/issues"
   },
-  "homepage": "https://github.com/samkarp/murmuration#readme",
+  "homepage": "https://github.com/allsportster023/scheduleApp#readme",
   "dependencies": {
     "axios": "^0.15.2",
     "d3": "^4.7.3",

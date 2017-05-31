@@ -43,7 +43,7 @@ class ScheduleApp extends React.Component {
 
 
     this.setState({
-      focusDate: moment().hour(0).minute(0).second(0).millisecond(0)
+      focusDate: firstDay.hour(0).minute(0).second(0).millisecond(0)
     })
 
   }
@@ -67,23 +67,40 @@ class ScheduleApp extends React.Component {
 
   handleCalendarChange(e) {
 
-    console.log(this.state.focusDate);
+    let newFocusDate = moment(this.state.headerDates[0].valueOf() + (this.state.headerDates[1].valueOf() - this.state.headerDates[0].valueOf()) / 2);
+
+    console.log(newFocusDate);
 
     if (e != this.state.currentView) {
       let daysToSubtract = 0;
+      let daysToAdd = 0;
 
       if (e == 'month') {
-        daysToSubtract = this.state.focusDate.date()
+        daysToSubtract = newFocusDate.date();
+        daysToAdd = newFocusDate.daysInMonth();
       } else if (e == 'week') {
-        daysToSubtract = this.state.focusDate.day();
+        daysToSubtract = newFocusDate.day() + 1;
+        daysToAdd = 8
+      } else if (e == 'day') {
+        daysToAdd = 1
       }
+
+      const headerFirstDate = newFocusDate.clone();
+      headerFirstDate.subtract(daysToSubtract, "days").hour(0).minute(0).second(0).millisecond(0);
+      const headerSecondDate = headerFirstDate.clone();
+      headerSecondDate.add(daysToAdd, "days").hour(0).minute(0).second(0).millisecond(0);
+
+
+      console.log(headerFirstDate.toISOString());
+      console.log(headerSecondDate.toISOString());
+
+      newFocusDate.subtract(daysToSubtract);
 
 
       this.setState({
         currentView: e,
-        focusDate: this.state.focusDate.subtract(daysToSubtract, "days").hour(0).minute(0).second(0).millisecond(0),
-        headerDates: [this.state.focusDate.subtract(daysToSubtract, "days").hour(0).minute(0).second(0).millisecond(0),
-          this.state.focusDate.subtract(daysToSubtract, "days").hour(0).minute(0).second(0).millisecond(0)]
+        focusDate: newFocusDate.subtract(daysToSubtract, 'days').hour(0).minute(0).second(0).millisecond(0),
+        headerDates: [headerFirstDate, headerSecondDate]
       });
     }
   }
@@ -141,10 +158,6 @@ class ScheduleApp extends React.Component {
 
   }
 
-  changeHeader(){
-
-  }
-
   render() {
     const squares = [];
     let neededSquares = 42;
@@ -165,8 +178,8 @@ class ScheduleApp extends React.Component {
     }
     else if (this.state.currentView == 'week') {
       toRender = <WeekViewScrollPanel boxWidth="12.5%" date={this.state.focusDate}
-                                 scrollHandler={this.changeFieldOfView}
-                                 currentCalType={this.state.currentView}/>
+                                      scrollHandler={this.changeFieldOfView}
+                                      currentCalType={this.state.currentView}/>
     }
 
     for (let i = 0; i < neededSquares; i++) {
