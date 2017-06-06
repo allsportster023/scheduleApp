@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactList from 'react-list';
+import DaySquare from './DaySquare';
+
 
 class WeekViewScrollPanel extends React.Component {
 
@@ -15,14 +17,18 @@ class WeekViewScrollPanel extends React.Component {
     let thisItemDate = this.props.date.clone();
     thisItemDate.add(index - 5003, 'days');
 
-    return <div id={thisItemDate.format("YYYY-MM-DD")} key={key}
-                className={'monthItem item' + (index % 2 ? '' : ' even')}>
-      <div style={{verticalAlign: 'top', lineHeight: '25px'}}>
-        <b>{thisItemDate.format("ddd  M/D")}</b>
-      </div>
-      <div style={{height: '275px'}}>
-        HI
-      </div>
+    const color = index % 2 === 1;
+
+    let itemsForDate = [];
+
+    this.props.scheduledItems.forEach(function (item) {
+      if (item.Date.isSame(thisItemDate)) {
+        itemsForDate.push(item);
+      }
+    });
+
+    return <div id={thisItemDate.format("YYYY-MM-DD")} key={key} className={'monthItem ' + (index % 2 ? '' : ' even')} >
+        <DaySquare black={color} date={thisItemDate} view="week" dropHandler={this.props.dropHandler} items={itemsForDate}/>
     </div>;
   }
 

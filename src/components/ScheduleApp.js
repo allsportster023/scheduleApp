@@ -1,6 +1,10 @@
 import React, {Component} from 'react';
-import Square from './Square';
+import HTML5Backend from 'react-dnd-html5-backend';
+import { DragDropContext } from 'react-dnd';
+import axios from 'axios';
+import ResourcePanel from './ResourcePanel';
 import MonthlyHeader from './MonthlyHeader';
+import MonthViewPanel from './MonthViewPanel';
 import WeekViewScrollPanel from './WeekViewScrollPanel';
 import DayViewScrollPanel from './DayViewScrollPanel';
 import moment from 'moment';
@@ -15,14 +19,58 @@ class ScheduleApp extends React.Component {
     this.handleDatePageClick = this.handleDatePageClick.bind(this);
     this.handleCalendarChange = this.handleCalendarChange.bind(this);
     this.changeFieldOfView = this.changeFieldOfView.bind(this);
+    this.handleScheduledItem = this.handleScheduledItem.bind(this);
 
 
     this.state = {
       currentView: 'month',
       focusDate: moment().subtract(moment().day(), 'days').date(1).hour(0).minute(0).second(0).millisecond(0),
       headerDates: [moment().subtract(moment().day(), 'days').date(1).hour(0).minute(0).second(0).millisecond(0),
-        moment().subtract(moment().day(), 'days').add(1, 'month').date(1).hour(0).minute(0).second(0).millisecond(0)]
+        moment().subtract(moment().day(), 'days').add(1, 'month').date(1).hour(0).minute(0).second(0).millisecond(0)],
+      selectedCalendars: 'all',
+      resources: [],
+      scheduledItems: []
     }
+
+  }
+
+  componentDidUpdate(nextProps, nextState) {
+
+    if(this.props != nextProps) {
+      console.log("ScheduleApp: componentDidUpdate Props");
+    }
+
+    if(this.state != nextState){
+      console.log("ScheduleApp: componentDidUpdate State");
+      console.log(nextState.scheduledItems);
+    }
+  }
+
+  componentWillMount(){
+
+    const _this = this;
+
+    const solrUrl = "http://localhost:8983/solr/scheduleResources/select?indent=on&q=*:*&wt=json";
+
+    axios.get(solrUrl)
+      .then(function (d) {
+
+        console.log(d.data.response.docs);
+
+        _this.setState({
+          resources: d.data.response.docs
+        })
+
+      });
+  }
+
+  handleScheduledItem(item){
+
+    this.state.scheduledItems.push(item);
+
+    this.setState({
+      scheduledItems: this.state.scheduledItems
+    });
 
   }
 
@@ -37,10 +85,6 @@ class ScheduleApp extends React.Component {
     }
 
     const firstDay = moment().subtract(daysToSubtract, "days").hour(0).minute(0).second(0).millisecond(0);
-
-    console.log(daysToSubtract);
-    console.log(firstDay);
-
 
     this.setState({
       focusDate: firstDay.hour(0).minute(0).second(0).millisecond(0)
@@ -105,33 +149,6 @@ class ScheduleApp extends React.Component {
     }
   }
 
-  renderSquare(i, viewType) {
-    const x = i % 8;
-    const y = Math.floor(i / 8);
-    const color = i % 2 === 1;
-
-    let boxNumber = (i + 1) - this.state.focusDate.day();
-
-    let squareDate = this.state.focusDate.clone();
-    squareDate.add(boxNumber - 1, 'days');
-
-    //Set defaults (month view)
-    let boxHeight = '25%';
-    let boxWidth = '14.287%';
-
-    if (viewType == 'day') {
-      boxHeight = '100%';
-      boxWidth = '100%';
-    } else if (viewType == 'week') {
-      boxHeight = '100%';
-    }
-
-    return (
-      <div key={i} style={{width: boxWidth, height: boxHeight}} onClick={() => this.handleSquareClick(x, y)}>
-        <Square black={color} date={squareDate}/>
-      </div>
-    );
-  }
 
   changeFieldOfView(e) {
 
@@ -159,37 +176,33 @@ class ScheduleApp extends React.Component {
   }
 
   render() {
-    const squares = [];
-    let neededSquares = 42;
 
-    let toRender = <div style={{
-      width: '100%',
-      height: '53vh',
-      display: 'flex',
-      flexWrap: 'wrap'
-    }}>
-      {squares}
-    </div>;
+    let toRender = null;
 
     if (this.state.currentView == 'day') {
       toRender = <DayViewScrollPanel boxWidth="80%" date={this.state.focusDate}
+                                     scheduledItems={this.state.scheduledItems}
                                      scrollHandler={this.changeFieldOfView}
-                                     currentCalType={this.state.currentView}/>;
+                                     dropHandler={this.handleScheduledItem}/>;
     }
     else if (this.state.currentView == 'week') {
       toRender = <WeekViewScrollPanel boxWidth="12.5%" date={this.state.focusDate}
+                                      scheduledItems={this.state.scheduledItems}
                                       scrollHandler={this.changeFieldOfView}
-                                      currentCalType={this.state.currentView}/>
+                                      dropHandler={this.handleScheduledItem}/>
+    }
+    else if (this.state.currentView == 'month') {
+      toRender = <MonthViewPanel boxWidth="12.5%" date={this.state.focusDate}
+                                 scheduledItems={this.state.scheduledItems}
+                                 dropHandler={this.handleScheduledItem} />
     }
 
-    for (let i = 0; i < neededSquares; i++) {
-      squares.push(this.renderSquare(i, this.state.currentView));
-    }
 
     return (
       <div className="container-fluid">
         <div className="row">
           <div className="col-md-2 sidebar">
+            <ResourcePanel resources={this.state.resources}/>
           </div>
           <div className="col-md-8 sidebar">
             <MonthlyHeader
@@ -210,4 +223,4 @@ class ScheduleApp extends React.Component {
   }
 }
 
-export default ScheduleApp;
+export default DragDropContext(HTML5Backend)(ScheduleApp);
