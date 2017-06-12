@@ -1,0 +1,42 @@
+[
+  {
+    "Make": "Tesla",
+    "MonthlyAllocationCO": 4,
+    "MonthlyAllocationTX": 23,
+    "MonthlyAllocationWI": 12,
+    "MonthlyAllocationAK": 5,
+    "Date": "2017-06-01T00:00:00.000Z"
+  },
+  {
+    "Make": "Ford",
+    "MonthlyAllocationCO": 36,
+    "MonthlyAllocationTX": 22,
+    "MonthlyAllocationWI": 10,
+    "MonthlyAllocationAK": 13,
+    "Date": "2017-06-01T00:00:00.000Z"
+  },
+  {
+    "Make": "Mini",
+    "MonthlyAllocationCO": 8,
+    "MonthlyAllocationTX": 5,
+    "MonthlyAllocationWI": 0,
+    "MonthlyAllocationAK": 0,
+    "Date": "2017-06-01T00:00:00.000Z"
+  },
+  {
+    "Make": "BMW",
+    "MonthlyAllocationCO": 17,
+    "MonthlyAllocationTX": 25,
+    "MonthlyAllocationWI": 12,
+    "MonthlyAllocationAK": 6,
+    "Date": "2017-06-01T00:00:00.000Z"
+  },
+  {
+    "Make": "Nissan",
+    "MonthlyAllocationCO": 15,
+    "MonthlyAllocationTX": 18,
+    "MonthlyAllocationWI": 2,
+    "MonthlyAllocationAK": 4,
+    "Date": "2017-06-01T00:00:00.000Z"
+  }
+]

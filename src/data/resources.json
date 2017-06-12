@@ -1,0 +1,138 @@
+[
+  {
+    "Category": "Car",
+    "Make": "Mini",
+    "Registration": "MI11",
+    "DefaultStartHour":"0600",
+    "DefaultEndHour":"1800",
+    "DefaultDuration":"PT12H"
+  },
+  {
+    "Category": "Car",
+    "Make": "Mini",
+    "Registration": "MI12",
+    "DefaultStartHour":"0600",
+    "DefaultEndHour":"1800",
+    "DefaultDuration":"PT12H"
+  },
+  {
+    "Category": "Car",
+    "Make": "Mini",
+    "Registration": "MI13",
+    "DefaultStartHour":"0600",
+    "DefaultEndHour":"1800",
+    "DefaultDuration":"PT12H"
+  },
+  {
+    "Category": "Car",
+    "Make": "Mini",
+    "Registration": "MI14",
+    "DefaultStartHour":"0600",
+    "DefaultEndHour":"1800",
+    "DefaultDuration":"PT12H"
+  },
+  {
+    "Category": "Car",
+    "Make": "Tesla",
+    "Registration": "TS12",
+    "DefaultStartHour":"1200",
+    "DefaultEndHour":"1200",
+    "DefaultDuration":"PT12H"
+  },
+  {
+    "Category": "Car",
+    "Make": "Ford",
+    "Registration": "FD11",
+    "DefaultStartHour":"0600",
+    "DefaultEndHour":"0600",
+    "DefaultDuration":"PT24H"
+  },
+  {
+    "Category": "Car",
+    "Make": "Ford",
+    "Registration": "FD12",
+    "DefaultStartHour":"0600",
+    "DefaultEndHour":"0600",
+    "DefaultDuration":"PT24H"
+  },
+  {
+    "Category": "Car",
+    "Make": "Ford",
+    "Registration": "FD13",
+    "DefaultStartHour":"0600",
+    "DefaultEndHour":"0600",
+    "DefaultDuration":"PT24H"
+  },
+  {
+    "Category": "Car",
+    "Make": "Ford",
+    "Registration": "FD14",
+    "DefaultStartHour":"0600",
+    "DefaultEndHour":"0600",
+    "DefaultDuration":"PT24H"
+  },
+  {
+    "Category": "Car",
+    "Make": "BMW",
+    "Registration": "BW11",
+    "DefaultStartHour":"0600",
+    "DefaultEndHour":"1200",
+    "DefaultDuration":"PT30H"
+  },
+  {
+    "Category": "Car",
+    "Make": "BMW",
+    "Registration": "BW12",
+    "DefaultStartHour":"0600",
+    "DefaultEndHour":"1200",
+    "DefaultDuration":"PT30H"
+  },
+  {
+    "Category": "Car",
+    "Make": "BMW",
+    "Registration": "BW13",
+    "DefaultStartHour":"0600",
+    "DefaultEndHour":"1200",
+    "DefaultDuration":"PT30H"
+  },
+  {
+    "Category": "Car",
+    "Make": "BMW",
+    "Registration": "BW14",
+    "DefaultStartHour":"0600",
+    "DefaultEndHour":"1200",
+    "DefaultDuration":"PT30H"
+  },
+  {
+    "Category": "Car",
+    "Make": "Nissan",
+    "Registration": "NN11",
+    "DefaultStartHour":"0600",
+    "DefaultEndHour":"1200",
+    "DefaultDuration":"PT6H"
+  },
+  {
+    "Category": "Car",
+    "Make": "Nissan",
+    "Registration": "NN12",
+    "DefaultStartHour":"0600",
+    "DefaultEndHour":"1200",
+    "DefaultDuration":"PT6H"
+  },
+  {
+    "Category": "Car",
+    "Make": "Nissan",
+    "Registration": "NN13",
+    "DefaultStartHour":"0600",
+    "DefaultEndHour":"1200",
+    "DefaultDuration":"PT6H"
+  },
+  {
+    "Category": "Car",
+    "Make": "Nissan",
+    "Registration": "NN14",
+    "DefaultStartHour":"0600",
+    "DefaultEndHour":"1200",
+    "DefaultDuration":"PT6H"
+  }
+]

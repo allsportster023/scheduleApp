@@ -59,7 +59,7 @@ class ScheduleApp extends React.Component {
 
           d.mad = madResponse.data.response.docs.find(function (f) {
             return f.Make[0] == d.Make[0];
-          }).MonthlyAllocation[0];
+          }).MonthlyAllocationCO[0];
 
           return d;
         });
