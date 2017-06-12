@@ -1,2 +1,2 @@
 # Scheduling App
-Making better use of everyone's time.
+Schedule Smartly
