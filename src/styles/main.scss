@@ -385,3 +385,46 @@ h4 {
 .even {
   background: linear-gradient(#ddd, #ccc);
 }
+
+.MiniBarColor{
+  fill: #f140ff;
+  background-color: #f140ff;
+  color: #f140ff;
+}.TeslaBarColor{
+  fill: red;
+  background-color: red;
+  color: red;
+}
+.BMWBarColor{
+  fill: green;
+  background-color: green;
+  color: green;
+}
+.FordBarColor{
+  fill: blue;
+  background-color: blue;
+  color: blue;
+}
+.NissanBarColor{
+  fill: yellow;
+  background-color: yellow;
+  color: yellow;
+}
+
+.rectBar{
+  stroke: black;
+  stroke-width: 2;
+  opacity: 0.5;
+}
+
+.rectText{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 10px;
+}
+.norectText{
+  font-size: 0px;
+}
+.norectBar{
+  opacity: 1.0;
+  stroke-opacity: 1.0;
+}

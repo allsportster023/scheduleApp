@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { DragSource } from 'react-dnd';
+import {DragSource} from 'react-dnd';
 
-const knightSource = {
+const dragSource = {
 
   beginDrag(props, monitor, component) {
     // Return the data describing the dragged item
@@ -31,18 +31,30 @@ function collect(connect, monitor) {
 
 class ResourceItem extends Component {
   render() {
-    const { connectDragSource, isDragging } = this.props;
+    const {connectDragSource, isDragging} = this.props;
     return connectDragSource(
       <div style={{
         opacity: isDragging ? 0.5 : 1,
         fontSize: 25,
         fontWeight: 'bold',
         cursor: 'move',
-        marginTop: '30px',
+        marginTop: '20px',
         textAlign: 'center',
         backgroundColor: "darkgray"
       }}>
-        {this.props.resource.Registration.toString()}
+        <div className="container-fluid">
+          <div className="row">
+            <div className={"col-md-2 "+this.props.resource.Make + "BarColor"}>
+              i
+            </div>
+            <div className="col-md-3 col-md-offset-0">
+              {this.props.resource.Make.toString()}
+            </div>
+            <div className="col-md-3 col-md-offset-4" style={{fontSize: "15px", paddingTop:"7px"}}>
+              {this.props.resource.mad}
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
@@ -53,4 +65,4 @@ ResourceItem.propTypes = {
   isDragging: PropTypes.bool.isRequired
 };
 
-export default DragSource('resource', knightSource, collect)(ResourceItem);
+export default DragSource('resource', dragSource, collect)(ResourceItem);

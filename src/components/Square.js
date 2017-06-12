@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import TimelineRect from './TimelineRect';
+
 
 export default class Square extends Component {
 
@@ -43,23 +45,19 @@ export default class Square extends Component {
         </div>
         <div className="row" style={{height: "95%"}}>
           <svg width="100%" height="100%">
-            {this.props.items.map(function (i, d) {
+
+            {this.props.items.map(function (item, i) {
+
               if ((_this.props.items.length * 15 > boxHeightValue)) {
                 barHeight = (boxHeightValue / _this.props.items.length) - 1;
               }
 
-              return <rect className="rectBar" key={d} x={(i.DefaultStartHour[0] / 100) * hourlyWidth}
-                           y={(barHeight + 3) * d} width={((i.DefaultEndHour[0] / 100)-(i.DefaultStartHour[0] / 100)) * hourlyWidth}
-                           height={barHeight} style={{fill: "red", stroke: "black", strokeWidth: "2", opacity: "0.5"}}>
-                <title>{"Category: " + i.Category +
-                        "\nDuration: " + i.DefaultDuration +
-                        "\nStart Hour: " + i.DefaultStartHour +
-                        "\nEnd Hour: " + i.DefaultEndHour +
-                        "\nMake: " + i.Make +
-                        "\nRegistration: " + i.Registration}</title>
-              </rect>
+              return <TimelineRect key={i} index={i} item={item} height={barHeight} hourlyWidth={hourlyWidth} date={_this.props.date}/>;
+
+
             })}
             Sorry, your browser does not support inline SVG.
+
           </svg>
         </div>
       </div>

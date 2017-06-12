@@ -24,9 +24,9 @@ class ScheduleApp extends React.Component {
 
     this.state = {
       currentView: 'month',
-      focusDate: moment().subtract(moment().day(), 'days').date(1).hour(0).minute(0).second(0).millisecond(0),
-      headerDates: [moment().subtract(moment().day(), 'days').date(1).hour(0).minute(0).second(0).millisecond(0),
-        moment().subtract(moment().day(), 'days').add(1, 'month').date(1).hour(0).minute(0).second(0).millisecond(0)],
+      focusDate: moment().utc().subtract(moment().day(), 'days').date(1).hour(0).minute(0).second(0).millisecond(0),
+      headerDates: [moment().utc().subtract(moment().day(), 'days').date(1).hour(0).minute(0).second(0).millisecond(0),
+        moment().utc().subtract(moment().day(), 'days').add(1, 'month').date(1).hour(0).minute(0).second(0).millisecond(0)],
       selectedCalendars: 'all',
       resources: [],
       scheduledItems: []
@@ -42,7 +42,6 @@ class ScheduleApp extends React.Component {
 
     if(this.state != nextState){
       console.log("ScheduleApp: componentDidUpdate State");
-      console.log(nextState.scheduledItems);
     }
   }
 
@@ -50,23 +49,38 @@ class ScheduleApp extends React.Component {
 
     const _this = this;
 
-    const solrUrl = "http://localhost:8983/solr/scheduleResources/select?indent=on&q=*:*&wt=json";
+    axios.all([
+      axios.get('http://localhost:8983/solr/scheduleMad/select?indent=on&q=Date:"2017-06-01T00:00:00.000Z"&wt=json'),
+      axios.get('http://localhost:8983/solr/scheduleResources/select?indent=on&q=*:*&wt=json')
+    ])
+      .then(axios.spread(function (madResponse, resResponse) {
 
-    axios.get(solrUrl)
-      .then(function (d) {
+        const thisMonthsObjects = resResponse.data.response.docs.map(function (d) {
 
-        console.log(d.data.response.docs);
+          d.mad = madResponse.data.response.docs.find(function (f) {
+            return f.Make[0] == d.Make[0];
+          }).MonthlyAllocation[0];
+
+          return d;
+        });
+
 
         _this.setState({
-          resources: d.data.response.docs
+          resources: thisMonthsObjects
         })
+      }));
 
-      });
   }
 
   handleScheduledItem(item){
 
-    this.state.scheduledItems.push(item);
+    this.state.scheduledItems.push(Object.assign({},item));
+
+    const resourceToReduce = this.state.resources.find(function (e) {
+      return item.id == e.id;
+    });
+
+    resourceToReduce.mad -= moment.duration(resourceToReduce.DefaultDuration).asHours();
 
     this.setState({
       scheduledItems: this.state.scheduledItems
@@ -79,12 +93,12 @@ class ScheduleApp extends React.Component {
     let daysToSubtract = 1;
 
     if (this.state.currentView == 'month') {
-      daysToSubtract = moment().date();
+      daysToSubtract = moment().utc().date();
     } else if (this.state.currentView == 'week') {
-      daysToSubtract = moment().day();
+      daysToSubtract = moment().utc().day();
     }
 
-    const firstDay = moment().subtract(daysToSubtract, "days").hour(0).minute(0).second(0).millisecond(0);
+    const firstDay = moment().utc().subtract(daysToSubtract, "days").hour(0).minute(0).second(0).millisecond(0);
 
     this.setState({
       focusDate: firstDay.hour(0).minute(0).second(0).millisecond(0)
@@ -202,7 +216,7 @@ class ScheduleApp extends React.Component {
       <div className="container-fluid">
         <div className="row">
           <div className="col-md-2 sidebar">
-            <ResourcePanel resources={this.state.resources}/>
+            <ResourcePanel resources={this.state.resources} currentTimeframe={this.state.focusDate}/>
           </div>
           <div className="col-md-8 sidebar">
             <MonthlyHeader
