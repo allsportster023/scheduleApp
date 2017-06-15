@@ -12,7 +12,7 @@ export default class ResourcePanel extends React.Component {
 
     return (
 
-      <div style={{marginTop: "70px", paddingLeft:"20px"}}>
+      <div style={{marginTop: "10px"}}>
         {this.props.resources.map(function (resource, index) {
           return (
             <ResourceItem key={index} resource={resource}/>

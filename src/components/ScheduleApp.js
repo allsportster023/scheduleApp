@@ -3,6 +3,7 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContext } from 'react-dnd';
 import axios from 'axios';
 import ResourcePanel from './ResourcePanel';
+import ParentResourcePanel from './ParentResourcePanel';
 import MonthlyHeader from './MonthlyHeader';
 import MonthViewPanel from './MonthViewPanel';
 import WeekViewScrollPanel from './WeekViewScrollPanel';
@@ -29,6 +30,7 @@ class ScheduleApp extends React.Component {
         moment().utc().subtract(moment().day(), 'days').add(1, 'month').date(1).hour(0).minute(0).second(0).millisecond(0)],
       selectedCalendars: 'all',
       resources: [],
+      parentGroups: [],
       scheduledItems: []
     }
 
@@ -51,7 +53,7 @@ class ScheduleApp extends React.Component {
 
     axios.all([
       axios.get('http://localhost:8983/solr/scheduleMad/select?indent=on&q=Date:"2017-06-01T00:00:00.000Z"&wt=json'),
-      axios.get('http://localhost:8983/solr/scheduleResources/select?indent=on&q=*:*&wt=json')
+      axios.get('http://localhost:8983/solr/scheduleResources/select?facet.field=Make&facet.query=*&facet=on&indent=on&q=*:*&wt=json')
     ])
       .then(axios.spread(function (madResponse, resResponse) {
 
@@ -66,7 +68,8 @@ class ScheduleApp extends React.Component {
 
 
         _this.setState({
-          resources: thisMonthsObjects
+          resources: thisMonthsObjects,
+          parentGroups: resResponse.data.facet_counts.facet_fields.Make.filter(elem => typeof elem == 'string')
         })
       }));
 
@@ -216,7 +219,7 @@ class ScheduleApp extends React.Component {
       <div className="container-fluid">
         <div className="row">
           <div className="col-md-2 sidebar">
-            <ResourcePanel resources={this.state.resources} currentTimeframe={this.state.focusDate}/>
+            <ParentResourcePanel resources={this.state.parentGroups} currentTimeframe={this.state.focusDate}/>
           </div>
           <div className="col-md-8 sidebar">
             <MonthlyHeader

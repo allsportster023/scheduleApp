@@ -38,22 +38,23 @@ class ResourceItem extends Component {
         fontSize: 25,
         fontWeight: 'bold',
         cursor: 'move',
-        marginTop: '20px',
+        marginTop: '10px',
         textAlign: 'center',
         backgroundColor: "darkgray"
       }}>
         <div className="container-fluid">
-          <div className="row">
-            <div className={"col-md-2 "+this.props.resource.Make + "BarColor"}>
+          <div className="row no-gutters">
+            <div className={"col-sm-2 "+this.props.resource.Make + "BarColor"}>
               i
             </div>
-            <div className="col-md-3 col-md-offset-0">
-              {this.props.resource.Make.toString()}
+            <div className="col-sm-7">
+              {this.props.resource.Registration.toString()}
             </div>
-            <div className="col-md-3 col-md-offset-4" style={{fontSize: "15px", paddingTop:"7px"}}>
-              {this.props.resource.mad}
+            <div className="col-sm-3" style={{fontSize: "13px", padding:"-5px"}}>
+              <div>CO</div>
+              <div>{this.props.resource.mad}</div>
             </div>
-          </div>
+        </div>
         </div>
       </div>
     );
