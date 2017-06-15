@@ -1,42 +1,53 @@
 [
   {
     "Make": "Tesla",
-    "MonthlyAllocationCO": 4,
-    "MonthlyAllocationTX": 23,
-    "MonthlyAllocationWI": 12,
-    "MonthlyAllocationAK": 5,
+      "MonthlyAllocation":[
+      {"Colorado": 36},
+      {"Texas": 22},
+      {"Wisconsin": 15},
+      {"Alaska": 7}
+    ],
     "Date": "2017-06-01T00:00:00.000Z"
   },
+
   {
     "Make": "Ford",
-    "MonthlyAllocationCO": 36,
-    "MonthlyAllocationTX": 22,
-    "MonthlyAllocationWI": 10,
-    "MonthlyAllocationAK": 13,
+    "MonthlyAllocation":[
+      {"Colorado": 30},
+      {"Texas": 12},
+      {"Wisconsin": 5},
+      {"Alaska": 7}
+    ],
     "Date": "2017-06-01T00:00:00.000Z"
   },
   {
     "Make": "Mini",
-    "MonthlyAllocationCO": 8,
-    "MonthlyAllocationTX": 5,
-    "MonthlyAllocationWI": 0,
-    "MonthlyAllocationAK": 0,
+    "MonthlyAllocation":[
+      {"Colorado": 16},
+      {"Texas": 20},
+      {"Wisconsin": 11},
+      {"Alaska": 7}
+    ],
     "Date": "2017-06-01T00:00:00.000Z"
   },
   {
     "Make": "BMW",
-    "MonthlyAllocationCO": 17,
-    "MonthlyAllocationTX": 25,
-    "MonthlyAllocationWI": 12,
-    "MonthlyAllocationAK": 6,
+    "MonthlyAllocation":[
+      {"Colorado": 22},
+      {"Texas": 17},
+      {"Wisconsin": 1},
+      {"Alaska": 5}
+    ],
     "Date": "2017-06-01T00:00:00.000Z"
   },
   {
     "Make": "Nissan",
-    "MonthlyAllocationCO": 15,
-    "MonthlyAllocationTX": 18,
-    "MonthlyAllocationWI": 2,
-    "MonthlyAllocationAK": 4,
+    "MonthlyAllocation":[
+      {"Colorado": 40},
+      {"Texas": 10},
+      {"Wisconsin": 0},
+      {"Alaska": 3}
+    ],
     "Date": "2017-06-01T00:00:00.000Z"
   }
 ]
